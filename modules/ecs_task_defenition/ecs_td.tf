@@ -13,8 +13,8 @@ resource "aws_ecs_task_definition" "my_task" {
 
   container_definitions = jsonencode([
     {
-      name      = var.container_name #"my-container"
-      image     = var.container_image   # Replace with your real image
+      name      = var.container_name
+      image     = var.container_image  # Replace with your real image
       portMappings = [
         {
           containerPort = var.container_port #80
@@ -22,6 +22,7 @@ resource "aws_ecs_task_definition" "my_task" {
           protocol      = "tcp"
         }
       ],
+      environment = try(var.environment, null),
       logConfiguration = {
         logDriver = "awslogs",
         options = {

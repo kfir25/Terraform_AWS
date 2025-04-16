@@ -65,17 +65,32 @@ locals {
   cpu = 256
   memory = 512
   container_name = "my_container"
-  container_image = "nginx"
+  container_image = "amazonlinux:latest" #"nginx"
   container_port = 80
   log_group_name = "/ecs/my-task"
   ecs_service_assign_public_ip_ms1 = true
 
   ecs_service_name = "my_service"
+  environment_vars_ecs_task = [
+      {
+        name  = "AWS_REGION"
+        value = "us-east-1"
+      },
+      {
+        name  = "SSM_PARAM"
+        value = "/microservice/token"
+      },
+      {
+        name  = "SQS_URL"
+        value = module.sqs.sqs_queue_url   # "https://sqs.us-east-1.amazonaws.com/123456789012/my-queue"
+      }
+    ]
 
 
   task_name_ms2 = "microservice2"
   ecs_service_name_ms2 = "microservice2_service"
   ecs_service_assign_public_ip_ms2 = false
+  log_group_name_ms2 = "/ecs/my-task-2"
 
 
 

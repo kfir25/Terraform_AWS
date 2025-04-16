@@ -22,3 +22,12 @@ variable "log_group_name" {}
 variable "aws_region" {}
 variable "task_role_arn" {}
 variable "execution_role_arn"{}
+
+variable "environment" {
+  description = "List of environment variables for the container"
+  type        = list(object({
+    name  = string
+    value = string
+  }))
+  default     = []
+}

@@ -65,3 +65,9 @@ module "ssm_parameter" {
   name = local.ssm_name
   microservice_token = var.microservice_token
 }
+
+module "ecr" {
+    source = "./modules/ecr"
+    
+  
+}

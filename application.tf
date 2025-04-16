@@ -61,6 +61,7 @@ module "ecs_task_definition" {
     aws_region = var.region
     execution_role_arn = "arn:aws:iam::${local.account_id}:role/ecsTaskExecutionRole"
     task_role_arn     = aws_iam_role.ecs_task_execution_role.arn
+    environment = local.environment_vars_ecs_task
 }
 
 resource "aws_security_group" "ecs_sg" {
@@ -103,7 +104,7 @@ module "ecs_service" {
   container_port = local.container_port
   assign_public_ip =  local.ecs_service_assign_public_ip_ms1
 
-  depends_on = [module.alb]
+  depends_on = [module.alb, module.ecs_task_definition]
 }
 
 
@@ -119,7 +120,7 @@ module "ecs_task_definition_ms2" {
     container_name = local.container_name
     container_image = local.container_image
     container_port = local.container_port
-    log_group_name = local.log_group_name
+    log_group_name = local.log_group_name_ms2
     aws_region = var.region
     execution_role_arn = "arn:aws:iam::${local.account_id}:role/ecsTaskExecutionRole"
     task_role_arn =  aws_iam_role.ecs_task_role_microservice2.arn
@@ -138,5 +139,5 @@ module "ecs_service_ms2" {
   container_port = local.container_port
   assign_public_ip = local.ecs_service_assign_public_ip_ms2
 
-  depends_on = [module.sqs]
+  depends_on = [module.sqs,module.ecs_task_definition_ms2]
 }
