@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 
 module "ecs_fargate" {
   source = "./modules/ECS"
@@ -26,12 +28,30 @@ resource "aws_iam_role_policy_attachment" "ecs_execution_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
+resource "aws_iam_role_policy" "ecs_task_policy_microservice1" {
+  name = "ecsTaskPolicy-microservice1"
+  role = aws_iam_role.ecs_task_execution_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "ssm:GetParameter",
+          "ssm:GetParameters"
+        ],
+        Resource = "arn:aws:ssm:${var.region}:${data.aws_caller_identity.current.account_id}:parameter/microservice/token"
+      }
+    ]
+  })
+}
 
 module "ecs_task_definition" {
   source = "./modules/ecs_task_defenition"
 
     task_name = local.task_name
-    account_id = local.account_id
+    # account_id = local.account_id
     cpu = local.cpu
     memory = local.memory
     container_name = local.container_name
@@ -39,7 +59,8 @@ module "ecs_task_definition" {
     container_port = local.container_port
     log_group_name = local.log_group_name
     aws_region = var.region
-
+    execution_role_arn = "arn:aws:iam::${local.account_id}:role/ecsTaskExecutionRole"
+    task_role_arn     = aws_iam_role.ecs_task_execution_role.arn
 }
 
 resource "aws_security_group" "ecs_sg" {
@@ -80,6 +101,42 @@ module "ecs_service" {
   target_group_arn = aws_lb_target_group.ecs_tg.arn
   container_name = local.container_name
   container_port = local.container_port
+  assign_public_ip =  local.ecs_service_assign_public_ip_ms1
 
   depends_on = [module.alb]
+}
+
+
+# microservice 2 task defenition 
+
+module "ecs_task_definition_ms2" {
+  source = "./modules/ecs_task_defenition"
+
+    task_name = local.task_name_ms2
+    # account_id = local.account_id
+    cpu = local.cpu
+    memory = local.memory
+    container_name = local.container_name
+    container_image = local.container_image
+    container_port = local.container_port
+    log_group_name = local.log_group_name
+    aws_region = var.region
+    execution_role_arn = "arn:aws:iam::${local.account_id}:role/ecsTaskExecutionRole"
+    task_role_arn =  aws_iam_role.ecs_task_role_microservice2.arn
+}
+
+module "ecs_service_ms2" {
+  source = "./modules/ecs_service"
+
+  name = local.ecs_service_name_ms2
+  cluster = module.ecs_fargate.cluster_id
+  task_definition = module.ecs_task_definition_ms2.task_definition_arn
+  private_subnet_ids = module.vpc.subnets
+  security_groups = [aws_security_group.ecs_sg.id]
+  target_group_arn = aws_lb_target_group.ecs_tg.arn
+  container_name = local.container_name
+  container_port = local.container_port
+  assign_public_ip = local.ecs_service_assign_public_ip_ms2
+
+  depends_on = [module.sqs]
 }

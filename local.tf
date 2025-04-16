@@ -68,9 +68,14 @@ locals {
   container_image = "nginx"
   container_port = 80
   log_group_name = "/ecs/my-task"
+  ecs_service_assign_public_ip_ms1 = true
 
   ecs_service_name = "my_service"
 
+
+  task_name_ms2 = "microservice2"
+  ecs_service_name_ms2 = "microservice2_service"
+  ecs_service_assign_public_ip_ms2 = false
 
 
 
@@ -101,6 +106,23 @@ sqs_tags = {
   Service =  "microservice2"
 }
 
+
+##############################################################################
+### S3
+##############################################################################
+
+
+bucket_name = "ms-bucket-uploads"
+s3_tags = {
+  Service =  "microservice2"
+}
+
+
+##############################################################################
+### SSM Parameter Store
+##############################################################################
+
+ssm_name = "/microservice/token"
 
 
 

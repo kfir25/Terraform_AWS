@@ -1,0 +1,8 @@
+
+variable "tags" {
+  
+}
+
+variable "bucket" {
+  
+}
