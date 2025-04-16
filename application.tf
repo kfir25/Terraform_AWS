@@ -41,3 +41,45 @@ module "ecs_task_definition" {
     aws_region = var.region
 
 }
+
+resource "aws_security_group" "ecs_sg" {
+  name        = "ecs-service-sg"
+  description = "Allow inbound HTTP traffic from the ALB and allow all egress"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress {
+    description      = "HTTP from ALB"
+    from_port        = 80
+    to_port          = 80
+    protocol         = "tcp"
+    security_groups  = [aws_security_group.alb_sg.id] # Only allow ALB to talk to ECS
+  }
+
+  egress {
+    description = "Allow all outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "ecs-service-sg"
+  }
+}
+
+
+module "ecs_service" {
+  source = "./modules/ecs_service"
+
+  name = local.ecs_service_name
+  cluster = module.ecs_fargate.cluster_id
+  task_definition = module.ecs_task_definition.task_definition_arn
+  private_subnet_ids = module.vpc.subnets
+  security_groups = [aws_security_group.ecs_sg.id]
+  target_group_arn = aws_lb_target_group.ecs_tg.arn
+  container_name = local.container_name
+  container_port = local.container_port
+
+  depends_on = [module.alb]
+}

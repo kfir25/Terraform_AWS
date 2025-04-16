@@ -69,13 +69,45 @@ locals {
   container_port = 80
   log_group_name = "/ecs/my-task"
 
+  ecs_service_name = "my_service"
 
 
 
 
+##############################################################################
+### ALB
+##############################################################################
+ 
+
+alb_name = "ecs-alb"
+alb_subnet = "public_subnet"
+load_balancer_type = "application"
+internal = false
+
+
+
+
+
+
+
+
+
+##############################################################################
+### SQS
+##############################################################################
+
+sqs_name = "microservice-queue"
+sqs_tags = {
+  Service =  "microservice2"
+}
 
 
 
 
 
 }
+
+
+
+
+

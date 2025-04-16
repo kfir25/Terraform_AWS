@@ -18,3 +18,11 @@ output "vpc_cidr_block" {
 output "aws_internet_gateway" {
   value =  aws_internet_gateway.gw.id
 }
+
+# output "subnets" {
+#   value = aws_subnet.public
+# }
+
+output "subnets" {
+  value = [for subnet in aws_subnet.public : subnet.id]
+}
