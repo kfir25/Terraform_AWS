@@ -8,6 +8,9 @@ on:
       terraform-apply:
         type: boolean
         default: true
+      terraform-destroy:
+        type: boolean
+        default: false
       # microservice1_image:
       #   description: "Image URI for microservice 1"
       #   required: false
@@ -59,6 +62,12 @@ jobs:
           if [[ "${{ github.event.inputs.terraform-apply }}" == 'true' ]]; then
           terraform apply -auto-approve tfplan
           fi
+        name: Terraform Destroy # i  might want t use it
+        env:
+          TF_VAR_microservice_token: ${{ secrets.MICROSERVICE_TOKEN }}
+        run: |
+         if [[ "${{ github.event.inputs.terraform-destroy }}" == 'true' ]]; then
+         terraform destroy -auto-approve -input=false
 
      #terraform apply -auto-approve -var="image_microservice1=${{ github.event.inputs.microservice1_image }}" -var="image_microservice2=${{ github.event.inputs.microservice2_image }}" tfplan
 

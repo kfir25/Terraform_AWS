@@ -17,3 +17,4 @@ variable "image_microservice1" {
 variable "image_microservice2" {
   default = "nginx"
 }
+
