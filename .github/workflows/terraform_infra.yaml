@@ -48,7 +48,7 @@ jobs:
       - name: Terraform Plan
         env:
           TF_VAR_microservice_token: ${{ secrets.MICROSERVICE_TOKEN }}
-        run: terraform plan -out=tfplan -input=false -var-file=TEST.tfvars
+        run: terraform plan -out=tfplan -input=false -var-file=TEST.tfvars -var="image_microservice1=${{ github.event.inputs.microservice1_image }}" -var="image_microservice2=${{ github.event.inputs.microservice2_image }}"
 
       - name: Terraform Apply
         env:
