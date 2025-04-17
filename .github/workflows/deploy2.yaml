@@ -36,13 +36,13 @@ jobs:
         docker build -t $IMAGE_URI ./microservice2
         docker push $IMAGE_URI
 
-    - name: Trigger Terraform Pipeline
-      uses: peter-evans/repository-dispatch@v2
-      with:
-        token: ${{ secrets.PAT_REPO_ACCESS }}
-        repository: kfir25/Terraform_AWS
-        event-type: terraform-deploy
-        client-payload: '{"terraform_apply": true}'
+    # - name: Trigger Terraform Pipeline
+    #   uses: peter-evans/repository-dispatch@v2
+    #   with:
+    #     token: ${{ secrets.PAT_REPO_ACCESS }}
+    #     repository: kfir25/Terraform_AWS
+    #     event-type: terraform-deploy
+    #     client-payload: '{"terraform_apply": true}'
 
     # Optional Terraform deploy step
     # - name: Terraform Init & Apply

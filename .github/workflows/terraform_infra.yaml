@@ -65,7 +65,7 @@ jobs:
       - name: Terraform Destroy # i  might want t use it
         env:
           TF_VAR_microservice_token: ${{ secrets.MICROSERVICE_TOKEN }}
-          APPLY_FLAG: ${{ github.event.client_payload.terraform_apply }}
+          # APPLY_FLAG: ${{ github.event.client_payload.terraform_apply }}
         run: |
          if [[ "${{ github.event.inputs.terraform-destroy }}" == 'true' ]] || [[ "$APPLY_FLAG" == 'true' ]] ; then
          terraform destroy -auto-approve -input=false
