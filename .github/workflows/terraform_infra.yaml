@@ -38,9 +38,13 @@ jobs:
         run: terraform workspace select "test" || terraform workspace new "test"
 
       - name: Terraform Plan
+        env:
+          TF_VAR_microservice_token: ${{ secrets.MICROSERVICE_TOKEN }}
         run: terraform plan -out=tfplan -input=false -var-file=TEST.tfvars
 
       - name: Terraform Apply
+        env:
+          TF_VAR_microservice_token: ${{ secrets.MICROSERVICE_TOKEN }}
         run: |
           if [[ "${{ github.event.inputs.terraform-apply }}" == 'true' ]]; then
           terraform apply -auto-approve
