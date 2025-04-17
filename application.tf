@@ -1,5 +1,6 @@
 data "aws_caller_identity" "current" {}
-
+data "aws_ecr_repository" "service1" {name = "microservice1"}
+data "aws_ecr_repository" "service2" {name = "microservice2"}
 
 module "ecs_fargate" {
   source = "./modules/ECS"
@@ -55,7 +56,7 @@ module "ecs_task_definition" {
     cpu = local.cpu
     memory = local.memory
     container_name = local.container_name
-    container_image = var.image_microservice1
+    container_image = "${data.aws_ecr_repository.service1.repository_url}:latest"
     container_port = local.container_port
     log_group_name = local.log_group_name
     aws_region = var.region
@@ -142,7 +143,7 @@ module "ecs_task_definition_ms2" {
     cpu = local.cpu
     memory = local.memory
     container_name = local.container_name
-    container_image = var.image_microservice2
+    container_image = "${data.aws_ecr_repository.service2.repository_url}:latest"
     container_port = local.container_port
     log_group_name = local.log_group_name_ms2
     aws_region = var.region
