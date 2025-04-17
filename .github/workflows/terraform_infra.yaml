@@ -55,5 +55,5 @@ jobs:
           TF_VAR_microservice_token: ${{ secrets.MICROSERVICE_TOKEN }}
         run: |
           if [[ "${{ github.event.inputs.terraform-apply }}" == 'true' ]]; then
-          terraform apply -auto-approve
+          terraform apply -auto-approve -var="image_microservice1=${{ github.event.inputs.microservice1_image }}" -var="image_microservice2=${{ github.event.inputs.microservice2_image }}" tfplan
           fi
