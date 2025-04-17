@@ -8,7 +8,7 @@ app = Flask(__name__)
 # ENV vars
 REGION = os.environ.get("AWS_REGION", "us-east-1")
 SSM_PARAM = os.environ.get("SSM_PARAM", "/microservice/token")
-SQS_URL = os.environ.get("SQS_URL")
+SQS_URL = os.environ.get("SQS_URL", "https://sqs.us-east-1.amazonaws.com/977037036498/microservice-queue")
 
 # AWS clients
 ssm = boto3.client('ssm', region_name=REGION)
