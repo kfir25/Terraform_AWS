@@ -58,6 +58,10 @@ resource "aws_iam_role_policy" "ecs_task_policy_microservice2" {
   })
 }
 
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy_ms2" {
+  role       = aws_iam_role.ecs_task_role_microservice2.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
 
 module "ssm_parameter" {
   source = "./modules/ssm_parameter"

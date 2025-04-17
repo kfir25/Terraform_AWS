@@ -146,7 +146,7 @@ module "ecs_task_definition_ms2" {
     container_port = local.container_port
     log_group_name = local.log_group_name_ms2
     aws_region = var.region
-    execution_role_arn = "arn:aws:iam::${local.account_id}:role/ecsTaskExecutionRole"
+    execution_role_arn = aws_iam_role.ecs_task_role_microservice2.arn #"arn:aws:iam::${local.account_id}:role/ecsTaskExecutionRole"
     task_role_arn =  aws_iam_role.ecs_task_role_microservice2.arn
     environment = local.environment_vars_ecs_task_ms2
 
