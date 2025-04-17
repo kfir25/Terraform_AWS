@@ -2,5 +2,5 @@
 # simple public ecr
 
 resource "aws_ecr_repository" "ecr" {
-  name = "ecr"
+  name = var.name
 }
