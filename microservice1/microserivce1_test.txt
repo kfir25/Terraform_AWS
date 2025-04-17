@@ -1,0 +1,14 @@
+ecs-alb-443767256.us-east-1.elb.amazonaws.com
+
+curl -X POST http://ecs-alb-443767256.us-east-1.elb.amazonaws.com/process \
+  -H "Content-Type: application/json" \
+  -H "Authorization: supersecrettoken123" \
+  -d '{"email_timestream": "2024-04-16T10:00:00Z"}'
+
+
+
+#this is the test for the first microservice
+curl -X POST http://MYSQSURL/process \
+  -H "Content-Type: application/json" \
+  -H "Authorization: supersecrettoken123" \
+  -d '{"email_timestream": ""}'

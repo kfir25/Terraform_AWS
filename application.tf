@@ -148,6 +148,7 @@ module "ecs_task_definition_ms2" {
     aws_region = var.region
     execution_role_arn = "arn:aws:iam::${local.account_id}:role/ecsTaskExecutionRole"
     task_role_arn =  aws_iam_role.ecs_task_role_microservice2.arn
+    environment = local.environment_vars_ecs_task_ms2
 }
 
 module "ecs_service_ms2" {

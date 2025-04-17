@@ -91,6 +91,26 @@ locals {
   ecs_service_name_ms2 = "microservice2_service"
   ecs_service_assign_public_ip_ms2 = false
   log_group_name_ms2 = "/ecs/my-task-2"
+  environment_vars_ecs_task_ms2 = {
+      {
+        name  = "AWS_REGION"
+        value = "us-east-1"
+      },
+      {
+        name  = "SQS_URL"
+        value = "module.sqs.sqs_queue_url"
+      },
+            {
+        name  = "S3_BUCKET"
+        value = module.s3.s3_bucket_name
+      },
+            {
+        name  = "POLL_INTERVAL"
+        value = 10
+      }
+
+
+  }
 
 
 
