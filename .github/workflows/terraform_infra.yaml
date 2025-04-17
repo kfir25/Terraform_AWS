@@ -68,6 +68,7 @@ jobs:
         run: |
          if [[ "${{ github.event.inputs.terraform-destroy }}" == 'true' ]]; then
          terraform destroy -auto-approve -input=false
+         fi
 
      #terraform apply -auto-approve -var="image_microservice1=${{ github.event.inputs.microservice1_image }}" -var="image_microservice2=${{ github.event.inputs.microservice2_image }}" tfplan
 
