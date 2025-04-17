@@ -91,7 +91,8 @@ locals {
   ecs_service_name_ms2 = "microservice2_service"
   ecs_service_assign_public_ip_ms2 = false
   log_group_name_ms2 = "/ecs/my-task-2"
-  environment_vars_ecs_task_ms2 = {
+  container_image_ms2 = 
+  environment_vars_ecs_task_ms2 = [
       {
         name  = "AWS_REGION"
         value = "us-east-1"
@@ -108,7 +109,7 @@ locals {
         name  = "POLL_INTERVAL"
         value = 10
       }
-
+  ]
 
   }
 

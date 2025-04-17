@@ -1,9 +1,9 @@
-FROM python:3.11-slim
+FROM python:3.13-alpine
 
 WORKDIR /app
 
-COPY app.py .
+COPY microservice2.py .
 
 RUN pip install boto3
 
-CMD ["python", "app.py"]
+CMD ["python", "microservice2.py"]
