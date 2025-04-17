@@ -65,7 +65,7 @@ locals {
   cpu = 256
   memory = 512
   container_name = "my_container"
-  container_image = "amazonlinux:latest" #"nginx"
+  container_image = "977037036498.dkr.ecr.us-east-1.amazonaws.com/microservice1:latest" #"amazonlinux:latest" #"nginx"
   container_port = 80
   log_group_name = "/ecs/my-task"
   ecs_service_assign_public_ip_ms1 = true
