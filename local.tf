@@ -89,7 +89,7 @@ locals {
 
   task_name_ms2 = "microservice2"
   ecs_service_name_ms2 = "microservice2_service"
-  ecs_service_assign_public_ip_ms2 = false
+  ecs_service_assign_public_ip_ms2 = true  # false for real life senarios
   log_group_name_ms2 = "/ecs/my-task-2"
   container_image_ms2 = "977037036498.dkr.ecr.us-east-1.amazonaws.com/microservice2:latest"
 
