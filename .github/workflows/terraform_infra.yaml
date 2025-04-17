@@ -62,7 +62,7 @@ jobs:
           if [[ "${{ github.event.inputs.terraform-apply }}" == 'true' ]]; then
           terraform apply -auto-approve tfplan
           fi
-        name: Terraform Destroy # i  might want t use it
+      - name: Terraform Destroy # i  might want t use it
         env:
           TF_VAR_microservice_token: ${{ secrets.MICROSERVICE_TOKEN }}
         run: |
