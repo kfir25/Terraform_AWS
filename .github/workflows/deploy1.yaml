@@ -42,7 +42,7 @@ jobs:
     - name: Trigger Terraform Pipeline
       uses: peter-evans/repository-dispatch@v2
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.PAT_REPO_ACCESS }}
         repository: kfir25/Terraform_AWS
         event-type: terraform-deploy
         client-payload: '{"microservice1_image": "${{ env.IMAGE_URI }}"}'
