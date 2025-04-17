@@ -37,15 +37,21 @@ jobs:
         IMAGE_URI="${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
         docker build -t $IMAGE_URI ./microservice1
         docker push $IMAGE_URI
-        echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+        echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV  # Export IMAGE_URI to the pipeline environment
 
-    - name: Trigger Terraform Pipeline
-      uses: peter-evans/repository-dispatch@v2
-      with:
-        token: ${{ secrets.PAT_REPO_ACCESS }}
-        repository: kfir25/Terraform_AWS
-        event-type: terraform-deploy
-        client-payload: '{"microservice1_image": "${{ env.IMAGE_URI }}"}'
+    - name: Use IMAGE_URI in the next step
+      run: echo "The IMAGE_URI is ${{ env.IMAGE_URI }}"
+
+
+    # echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+
+    # - name: Trigger Terraform Pipeline
+    #   uses: peter-evans/repository-dispatch@v2
+    #   with:
+    #     token: ${{ secrets.PAT_REPO_ACCESS }}
+    #     repository: kfir25/Terraform_AWS
+    #     event-type: terraform-deploy
+    #     client-payload: '{"microservice1_image": "${{ env.IMAGE_URI }}"}'
 
 
 
