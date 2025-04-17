@@ -70,16 +70,18 @@ module "ssm_parameter" {
   microservice_token = var.microservice_token
 }
 
-module "ecr1" {
-    source = "./modules/ecr"
-    
-    name = local.ecr_name
-  
-}
+### ECR will be prebuild for this solution ### 
 
-module "ecr2" {
-    source = "./modules/ecr"
+# module "ecr1" {
+#     source = "./modules/ecr"
     
-    name = local.ecr_name_ms2
+#     name = local.ecr_name
   
-}
+# }
+
+# module "ecr2" {
+#     source = "./modules/ecr"
+    
+#     name = local.ecr_name_ms2
+  
+# }
