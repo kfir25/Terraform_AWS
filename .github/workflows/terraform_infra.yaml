@@ -1,6 +1,8 @@
 name: Terraform CI/CD
 
 on:
+  repository_dispatch:
+    types: [terraform-deploy]
   workflow_dispatch:
     inputs:
       terraform-apply:
