@@ -82,7 +82,7 @@ locals {
       },
       {
         name  = "SQS_URL"
-        value = module.sqs.sqs_queue_url   # "https://sqs.us-east-1.amazonaws.com/123456789012/my-queue"
+        value = "https://sqs.us-east-1.amazonaws.com/977037036498/microservice-queue" #module.sqs.sqs_queue_url   # "https://sqs.us-east-1.amazonaws.com/123456789012/my-queue"
       }
     ]
 
