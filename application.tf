@@ -107,6 +107,30 @@ module "ecs_service" {
   depends_on = [module.alb, module.ecs_task_definition]
 }
 
+# sqs policy permisions
+resource "aws_iam_policy" "sqs_send_policy" {
+  name        = "AllowSQSSendMessage"
+  description = "Allow ECS task to send messages to SQS"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = "sqs:SendMessage",
+        Resource = module.sqs.sqs_queue_arn
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "attach_sqs_send_to_task" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = aws_iam_policy.sqs_send_policy.arn
+}
+
+
+
 
 # microservice 2 task defenition 
 
