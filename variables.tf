@@ -10,10 +10,10 @@ variable "microservice_token" {
   description = "Use github action secret"
 }
 
-variable "microservice1_image" {
+variable "image_microservice1" {
   default = "nginx"
 }
 
-variable "microservice2_image" {
+variable "image_microservice2" {
   default = "nginx"
 }
