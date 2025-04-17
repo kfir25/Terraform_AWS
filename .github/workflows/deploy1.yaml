@@ -43,7 +43,7 @@ jobs:
       uses: peter-evans/repository-dispatch@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        repository: your-org/your-repo
+        repository: kfir25/Terraform_AWS
         event-type: terraform-deploy
         client-payload: '{"microservice1_image": "${{ env.IMAGE_URI }}"}'
 
