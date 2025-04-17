@@ -100,7 +100,7 @@ locals {
       },
       {
         name  = "SQS_URL"
-        value = "module.sqs.sqs_queue_url"
+        value = module.sqs.sqs_queue_url
       },
             {
         name  = "S3_BUCKET"
