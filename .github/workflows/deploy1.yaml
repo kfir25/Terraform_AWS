@@ -41,6 +41,13 @@ jobs:
 
     - name: Use IMAGE_URI in the next step
       run: echo "The IMAGE_URI is ${{ env.IMAGE_URI }}"
+      
+    - name: Trigger Terraform Pipeline
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.PAT_REPO_ACCESS }}
+        repository: kfir25/Terraform_AWS
+        event-type: terraform-deploy
 
 
     # echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
