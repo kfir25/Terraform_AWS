@@ -55,7 +55,7 @@ module "ecs_task_definition" {
     cpu = local.cpu
     memory = local.memory
     container_name = local.container_name
-    container_image = local.container_image
+    container_image = var.image_microservice1
     container_port = local.container_port
     log_group_name = local.log_group_name
     aws_region = var.region
@@ -142,7 +142,7 @@ module "ecs_task_definition_ms2" {
     cpu = local.cpu
     memory = local.memory
     container_name = local.container_name
-    container_image = local.container_image_ms2
+    container_image = var.image_microservice2
     container_port = local.container_port
     log_group_name = local.log_group_name_ms2
     aws_region = var.region

@@ -6,6 +6,14 @@ on:
       terraform-apply:
         type: boolean
         default: true
+      microservice1_image:
+        description: "Image URI for microservice 1"
+        required: false
+        default: "nginx"
+      microservice2_image:
+        description: "Image URI for microservice 2"
+        required: false
+        default: "nginx"
   # push:
   #   branches:
   #     - main

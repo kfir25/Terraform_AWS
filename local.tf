@@ -65,7 +65,7 @@ locals {
   cpu = 256
   memory = 512
   container_name = "my_container"
-  container_image = "977037036498.dkr.ecr.us-east-1.amazonaws.com/microservice1:latest" #"amazonlinux:latest" #"nginx"
+  # container_image = "977037036498.dkr.ecr.us-east-1.amazonaws.com/microservice1:latest" #"amazonlinux:latest" #"nginx"
   container_port = 80
   log_group_name = "/ecs/my-task"
   ecs_service_assign_public_ip_ms1 = true
@@ -82,7 +82,7 @@ locals {
       },
       {
         name  = "SQS_URL"
-        value = "https://sqs.us-east-1.amazonaws.com/977037036498/microservice-queue" #module.sqs.sqs_queue_url   # "https://sqs.us-east-1.amazonaws.com/123456789012/my-queue"
+        value = "https://sqs.us-east-1.amazonaws.com/${local.account_id}/microservice-queue" #module.sqs.sqs_queue_url   # "https://sqs.us-east-1.amazonaws.com/123456789012/my-queue"
       }
     ]
 
@@ -91,7 +91,7 @@ locals {
   ecs_service_name_ms2 = "microservice2_service"
   ecs_service_assign_public_ip_ms2 = true  # false for real life senarios
   log_group_name_ms2 = "/ecs/my-task-2"
-  container_image_ms2 = "977037036498.dkr.ecr.us-east-1.amazonaws.com/microservice2:latest"
+  # container_image_ms2 = "977037036498.dkr.ecr.us-east-1.amazonaws.com/microservice2:latest"
 
   environment_vars_ecs_task_ms2 = [
       {
