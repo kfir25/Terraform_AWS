@@ -156,6 +156,17 @@ Once deployed:
 - Send a POST request with token and payload
 - Verify that Microservice 2 writes the message to the S3 bucket
 
-<pre> ### Example Test Request You can test Microservice 1 by sending a POST request using `curl`: ```bash curl -X POST http://MYSQSURL/process \ -H "Content-Type: application/json" \ -H "Authorization: supersecrettoken123" \ -d '{"email_timestream": ""}' ``` Replace `MYSQSURL` with the actual URL provided by the Application Load Balancer. </pre>
+### 🔬 Example Test Request
+
+Once the infrastructure is up and running, you can test Microservice 1 with the following `curl` command:
+
+```bash
+curl -X POST http://<ALB-DNS>/process \
+  -H "Content-Type: application/json" \
+  -H "Authorization: supersecrettoken123" \
+  -d '{"email_timestream": "user@example.com_2025-04-17T12:00:00Z"}'
+✅ Replace <ALB-DNS> with the actual DNS name of your Application Load Balancer.
+
+✅ Replace the token with the one stored in your MICROSERVICE_TOKEN secret (if different).
 ---
 
