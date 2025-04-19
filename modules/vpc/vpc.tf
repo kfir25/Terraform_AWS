@@ -60,11 +60,6 @@ resource "aws_subnet" "public" {
     for_each = local.subnets
     availability_zone                              = each.value.availability_zone
     cidr_block                                     = each.value.subnet_cidr_block
-#   enable_dns64                                   = var.enable_ipv6 && var.public_subnet_enable_dns64
-#   enable_resource_name_dns_aaaa_record_on_launch = var.enable_ipv6 && var.public_subnet_enable_resource_name_dns_aaaa_record_on_launch
-#   enable_resource_name_dns_a_record_on_launch    = !var.public_subnet_ipv6_native && var.public_subnet_enable_resource_name_dns_a_record_on_launch
-#   map_public_ip_on_launch                        = var.map_public_ip_on_launch
-#   private_dns_hostname_type_on_launch            = var.public_subnet_private_dns_hostname_type_on_launch
     vpc_id                                         = each.value.vpc_id
 
     tags = "${each.value.subnet_name}"
@@ -103,10 +98,6 @@ resource "aws_route" "routes" {
 
 # }
 
-################################################################################
-# Public Security Group
-################################################################################
-
 
 ################################################################################
 # Private Subnets
@@ -121,18 +112,6 @@ resource "aws_route" "routes" {
 # }
 
 # resource "aws_route_table_association" "private" {
-
-# }
-
-################################################################################
-# Private Network ACLs
-################################################################################
-
-# resource "aws_network_acl" "private" {
-
-# }
-
-# resource "aws_network_acl_rule" "private_inbound" {
 
 # }
 
